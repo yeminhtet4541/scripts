@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# VPS Dashboard + DOTY + ZI Integrated Installer
+# Version: 1.2.9-full
+# SCRIPT BY: YeMinHtet
+# WEBSITE: WWW.YEMINHTET.COM
+set -euo pipefail
+shopt -s nocasematch
+
+VERSION="1.2.9-full"
+DOMAIN=${DOMAIN:-""}
+CLIENT_CONFIG_DIR="/root/client-configs"
+mkdir -p "$CLIENT_CONFIG_DIR"
+
+info() { echo -e "\e[34m[INFO]\e[0m $*"; }
+warn() { echo -e "\e[33m[WARN]\e[0m $*"; }
+err()  { echo -e "\e[31m[ERROR]\e[0m $*"; }
+
+# Root check
+if [ "$EUID" -ne 0 ]; then
+    err "This script must be run as root."; exit 1
+fi
+
+# Placeholder functions
+install_xray(){ info "Xray install placeholder"; sleep 1; }
+install_openvpn(){ info "OpenVPN install placeholder"; sleep 1; }
+ssh_ws_menu(){ info "SSH/WS MENU selected"; sleep 1; }
+dns_panel(){ info "DNS PANEL selected"; sleep 1; }
+domain_panel(){ info "DOMAIN PANEL selected"; sleep 1; }
+ipv6_panel(){ info "IPV6 PANEL selected"; sleep 1; }
+vps_status(){ info "VPS STATUS selected"; sleep 1; }
+netguard_panel(){ info "NETGUARD PANEL selected"; sleep 1; }
+vpn_port_info(){ info "VPN PORT INFO selected"; sleep 1; }
+clean_logs(){ info "CLEAN VPS LOGS selected"; sleep 1; }
+install_sldns(){ info "SLDNS MENU selected"; sleep 1; }
+install_ohp(){ info "OHP MENU selected"; sleep 1; }
+
+# -----------------------------
+# DOTY Installer
+# -----------------------------
+install_doty(){
+    clear
+    echo -e "\e[36m========== DOTY SCRIPT INSTALLER ==========\e[0m"
+    info "Downloading DOTY script..."
+    wget -O /root/doty.sh https://raw.githubusercontent.com/dotywrt/doty/main/doty.sh
+    chmod +x /root/doty.sh
+    info "Running DOTY script..."
+    /root/doty.sh
+    echo -e "\n\e[32mDOTY finished.\e[0m"
+    echo -e "\e[33mPress Enter to return to main menu...\e[0m"
+    read -r
+}
+
+# -----------------------------
+# ZI Installer with default ports
+# -----------------------------
+install_zi(){
+    clear
+    echo -e "\e[36m========== ZI SCRIPT INSTALLER ==========\e[0m"
+    info "Downloading ZI script..."
+    wget -O /root/zi.sh https://raw.githubusercontent.com/JVPNSHOP/ZIUDP-TEST/main/zi.sh
+    chmod
